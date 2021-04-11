@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { ProductController } from './controllers/product.controller'
+import { createConnection } from 'typeorm'
 
 class Server {
   private productController: ProductController
@@ -16,11 +17,25 @@ class Server {
     this.app.set('port', process.env.PORT || 5000)
   }
 
-  public routes() {
-    this.app.use('/api/product/', this.productController.router)
+  public async routes() {
+
+    await createConnection({
+      type: "postgres",
+      host: "localhost",
+      port: 5432,
+      username: "postgres",
+      password: "",
+      database: "ecommerce",
+      entities: ["build/database/entities/**/*.js/"],
+      synchronize: true,
+      name: "ecommerce"
+    })
+
     this.app.get('/', (req: Request, res: Response) => {
       res.json('Hello world')
     })
+
+    this.app.use('/api/product/', this.productController.router)
   }
 
   public start() {

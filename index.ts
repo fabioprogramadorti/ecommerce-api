@@ -28,7 +28,16 @@ class Server {
       database: "ecommerce",
       entities: ["build/database/entities/**/*.js/"],
       synchronize: true,
-      name: "ecommerce"
+      name: "ecommerce",
+      migrationsTableName: "custom_migration_table",
+      migrations: ["migration/*.js"],
+      cli: {
+        "migrationsDir": "./migration"
+      }
+    }).then(() => {
+      console.log('Connected to the database')
+    }).catch((err) => {
+      console.log('Error on the connection')
     })
 
     this.app.get('/', (req: Request, res: Response) => {

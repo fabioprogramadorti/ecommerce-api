@@ -5,7 +5,7 @@ export class ProductEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('varchar')
   name: string;
 
   @Column('text')
@@ -17,6 +17,6 @@ export class ProductEntity {
   @Column('date')
   published_at: Date;
 
-  @Column()
+  @Column('boolean')
   active: boolean
 }

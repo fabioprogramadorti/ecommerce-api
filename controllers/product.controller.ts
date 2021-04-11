@@ -1,27 +1,30 @@
 import { Router, Response, Request } from 'express'
+import { ProductService } from '../services/product.service'
 
 export class ProductController{
   public router: Router
+  private productService: ProductService
 
   constructor() {
     this.router = Router()
+    this.productService = new ProductService()
     this.routes()
   }
 
   public list = async (req: Request, res: Response) => {
-    res.send('List')
+    res.send(this.productService.list())
   }
   public update = async (req: Request, res: Response) => {
-    res.send('Update')
+    res.send(this.productService.update())
   }
   public get = async (req: Request, res: Response) => {
-    res.send('Get')
+    res.send(this.productService.get())
   }
   public create = async (req: Request, res: Response) => {
-    res.send('Create')
+    res.send(this.productService.create())
   }
   public delete = async (req: Request, res: Response) => {
-    res.send('Delete')
+    res.send(this.productService.delete())
   }
 
   public routes() {
